@@ -3,6 +3,10 @@ import React from "react";
 import Titles from "./components/Titles";
 import Form from "./components/Form";
 import Weather from "./components/Weather";
+import HeaderForm from "./components/HeaderForm"
+import Header from "./components/Header"
+import BackgroundForm from "./components/BackgroundForm"
+import Background from "./components/Background"
 
 const API_KEY = "18abacb270172187ac2b3bdc8dbf1a02";
 
@@ -14,9 +18,32 @@ class App extends React.Component {
     temperature: undefined,
     humidity: undefined,
     description: undefined,
-    error: undefined
+    error: undefined,
+
+    headerImage: undefined,
+    BackgroundImage: undefined
+  }
+  getImage = async (e) => {
+    e.preventDefault();
+
+    const image = e.target.elements.headerImage.value;
+    if(image){
+      this.setState({
+        headerImage: image
+      })
+    }
   }
 
+    getBGImage = async (e) => {
+    e.preventDefault();
+
+    const image = e.target.elements.headerImage.value;
+    if(image){
+      this.setState({
+        BackgroundImage: image
+      })
+    }
+  }
   getWeather = async (e) => {
     e.preventDefault();
 
@@ -63,6 +90,10 @@ class App extends React.Component {
         error = {this.state.error}
 
         />
+        <HeaderForm getImage={this.getImage}/>
+        <Header Image = {this.state.headerImage}/>
+        <BackgroundForm getBGImage={this.getBGImage}/>
+        <Background Image = {this.state.BackgroundImage}/>
       </div>
       );
   }
