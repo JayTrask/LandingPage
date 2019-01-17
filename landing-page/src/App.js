@@ -7,6 +7,7 @@ import HeaderForm from "./components/HeaderForm"
 import Header from "./components/Header"
 import BackgroundForm from "./components/BackgroundForm"
 import Background from "./components/Background"
+import Landing from "./components/Landing"
 
 const API_KEY = "18abacb270172187ac2b3bdc8dbf1a02";
 
@@ -21,7 +22,20 @@ class App extends React.Component {
     error: undefined,
 
     headerImage: undefined,
-    BackgroundImage: undefined
+    BackgroundImage: undefined,
+
+    //Landing view while this is true; one entered this is set to false to reveal the rest of the application. #TODO
+    landing: true,
+    landingImage: undefined
+
+  }
+
+  landingImages = {
+    one: "https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    two: "https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    three: "https://images.pexels.com/photos/6832/waterfall-beauty-lets-explore-lets-get-lost.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    four: "https://images.pexels.com/photos/62627/niagara-cases-water-waterfall-62627.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    five: "https://images.pexels.com/photos/1533060/pexels-photo-1533060.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
   }
   getImage = async (e) => {
     e.preventDefault();
@@ -79,6 +93,11 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Landing 
+          landingImage={this.state.landingImage}
+          landing={this.state.landing}
+          />
+
         <Titles />
         <Form getWeather={this.getWeather}/>
         <Weather 
