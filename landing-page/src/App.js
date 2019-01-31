@@ -10,6 +10,7 @@ import Background from "./components/Background"
 import Landing from "./components/Landing"
 
 const API_KEY = "18abacb270172187ac2b3bdc8dbf1a02";
+var landingNumber = Math.floor(Math.random()*5)+1
 
 class App extends React.Component {
 
@@ -26,7 +27,7 @@ class App extends React.Component {
 
     //Landing view while this is true; one entered this is set to false to reveal the rest of the application. #TODO
     landing: true,
-    landingImage: undefined
+    landingImage: "https://images.pexels.com/photos/4827/nature-forest-trees-fog.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
 
   }
 
@@ -36,6 +37,15 @@ class App extends React.Component {
     three: "https://images.pexels.com/photos/6832/waterfall-beauty-lets-explore-lets-get-lost.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     four: "https://images.pexels.com/photos/62627/niagara-cases-water-waterfall-62627.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
     five: "https://images.pexels.com/photos/1533060/pexels-photo-1533060.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+  }
+
+  enterSite = async (e) => {
+    e.preventDefault();
+    
+    this.setState({
+      landing: false
+    })
+    
   }
   getImage = async (e) => {
     e.preventDefault();
@@ -96,11 +106,17 @@ class App extends React.Component {
         <Landing 
           landingImage={this.state.landingImage}
           landing={this.state.landing}
+          temperature={this.state.temperature}
+          BackgroundImage={this.state.BackgroundImage}
+          headerImage={this.state.headerImage}
+          enterSite={this.enterSite}
+          getWeather={this.getWeather}
+          getImage={this.getImage}
+          getBGImage={this.getBGImage}
           />
 
-        <Titles />
-        <Form getWeather={this.getWeather}/>
-        <Weather 
+        {!this.state.landing && <Titles /> }
+        {!this.state.landing && <Weather 
         city = {this.state.city}
         country = {this.state.country}
         temperature = {this.state.temperature}
@@ -108,11 +124,9 @@ class App extends React.Component {
         description = {this.state.description}
         error = {this.state.error}
 
-        />
-        <HeaderForm getImage={this.getImage}/>
-        <Header Image = {this.state.headerImage}/>
-        <BackgroundForm getBGImage={this.getBGImage}/>
-        <Background Image = {this.state.BackgroundImage}/>
+        /> }
+        { !this.state.landing && <Header Image = {this.state.headerImage}/> } 
+        { !this.state.landing && <Background Image = {this.state.BackgroundImage}/> }
       </div>
       );
   }
